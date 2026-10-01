@@ -221,3 +221,20 @@ KTVHTTPCache is released under the MIT license.
 - [SGPlayer](https://github.com/libobjc/SGPlayer) - A powerful media player framework for iOS, macOS, and tvOS.
 - [KTVVideoProcess](https://github.com/ChangbaDevs/KTVVideoProcess) - A High-Performance video effects processing framework.
 
+
+
+## IntelliFuture Swift Package Manager integration
+
+This fork is based on upstream commit
+`388da9af7891ea081e2631e09483ff5cbb09639b` (3.1.0 plus upstream platform and
+observer-cleanup fixes). It adds a Swift 6.1 package manifest with iOS 17 / macOS 14
+platforms, exports public headers through symlinks, and uses the socket sources
+already bundled by upstream. No third-party sources are duplicated.
+
+The sole runtime patch changes `KTVHCPathTool.basePath` to `NSCachesDirectory`.
+Fragments, complete files and the archive index live together in
+`Library/Caches/KTVHTTPCache`, with normal cache backup/purge semantics.
+
+Consumers pin an exact Git revision rather than a floating branch. The package
+sets `-fobjc-arc` for upstream Objective-C sources; revision-based dependencies
+allow this compiler setting. Original license notices remain intact.

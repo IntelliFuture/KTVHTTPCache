@@ -66,7 +66,9 @@
 
 + (NSString *)basePath
 {
-    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    // Yomiya patch: downloadable playback data belongs in the purgeable,
+    // non-backed-up cache directory, together with its fragment index.
+    return [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 + (BOOL)isRelativePath:(NSString *)path
