@@ -49,7 +49,9 @@
         KTVHCLogAlloc(self);
         self.server = [[HTTPServer alloc] init];
         [self.server setConnectionClass:[KTVHCHTTPConnection class]];
-        [self.server setType:@"_http._tcp."];
+        // Proxy transport is private to this device. URL host rewriting alone
+        // does not restrict the listening socket. Do not publish via Bonjour.
+        [self.server setInterface:@"loopback"];
         self.pingCondition = [[NSCondition alloc] init];
         self.pingQueue = dispatch_queue_create("KTVHCHTTPServer_pingQueue", DISPATCH_QUEUE_SERIAL);
 #if KTVHC_UIKIT
